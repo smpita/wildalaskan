@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('author_email')->index();
             $table->string('slug')->unique();
-            $table->foreignId('ingredients_id')->constrained('ingredients');
             $table->json('steps');
             $table->timestamps();
         });
