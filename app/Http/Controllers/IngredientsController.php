@@ -12,7 +12,9 @@ class IngredientsController extends Controller
      */
     public function index()
     {
-        //
+        $ingredients = Ingredients::orderBy('name')->get(['id', 'name']);
+
+        return response()->json($ingredients);
     }
 
     /**
