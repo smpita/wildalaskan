@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRecipesRequest;
 use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
 use App\Services\RecipeSearchServiceInterface;
-use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
@@ -17,14 +17,16 @@ class RecipeController extends Controller
     /**
      * Display a listing of the resource with optional search.
      */
-    public function index(Request $request)
+    public function index(SearchRecipesRequest $request)
     {
+        $validated = $request->validated();
+
         $email = $request->input('email');
         $keyword = $request->input('keyword');
-        $ingredient = $request->input('ingredient');
+        $ingredients = $request->input('ingredients');
         $perPage = $request->input('per_page', 15);
 
-        $recipes = $this->searchService->search($email, $keyword, $ingredient, $perPage);
+        $recipes = $this->searchService->search($email, $keyword, $ingredients, $perPage);
 
         // Preserve query parameters in pagination links
         $recipes->appends($request->query());
