@@ -242,9 +242,13 @@ class RecipeSearchTest extends TestCase
 
         // Check that next page link contains search parameters
         if (isset($links['next'])) {
-            $this->assertStringContainsString('email=foo@bar.com', $links['next']);
-            $this->assertStringContainsString('ingredient=potato', $links['next']);
-            $this->assertStringContainsString('keyword=scallop', $links['next']);
+            // Parse the URL to handle URL encoding
+            $queryString = parse_url($links['next'], PHP_URL_QUERY);
+            parse_str($queryString, $queryParams);
+
+            $this->assertEquals('foo@bar.com', $queryParams['email'] ?? null);
+            $this->assertEquals('potato', $queryParams['ingredient'] ?? null);
+            $this->assertEquals('scallop', $queryParams['keyword'] ?? null);
         }
     }
 }
