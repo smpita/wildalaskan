@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class RecipeSearchService implements RecipeSearchServiceInterface
 {
-    public function search(?string $email, ?string $keyword, ?string $ingredient, ?int $perPage = 15): LengthAwarePaginator
+    public function search(?string $email, ?string $keyword, ?array $ingredients, ?int $perPage = 15): LengthAwarePaginator
     {
         $query = Recipe::with('ingredients');
 
@@ -17,11 +17,15 @@ class RecipeSearchService implements RecipeSearchServiceInterface
             $query->where('author_email', $email);
         }
 
-        // Ingredient - partial match
-        if ($ingredient) {
-            $query->whereHas('ingredients', function (Builder $q) use ($ingredient) {
-                $q->where('name', 'LIKE', "%{$ingredient}%");
-            });
+        // Ingredients - recipes must have all selected ingredients (partial match on each)
+        if ($ingredients && count($ingredients) > 0) {
+            foreach ($ingredients as $ingredient) {
+                if (!empty($ingredient)) {
+                    $query->whereHas('ingredients', function (Builder $q) use ($ingredient) {
+                        $q->where('name', 'LIKE', "%{$ingredient}%");
+                    });
+                }
+            }
         }
 
         // Keyword - matches name, description, ingredients, or steps

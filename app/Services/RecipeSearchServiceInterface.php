@@ -7,14 +7,14 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 interface RecipeSearchServiceInterface
 {
     /**
-     * Search recipes by email, keyword, and ingredient
+     * Search recipes by email, keyword, and ingredients
      *
      * @param string|null $email
      * @param string|null $keyword
-     * @param string|null $ingredient
+     * @param array|null $ingredients
      * @param int|null $perPage
      * @return LengthAwarePaginator
      */
-    public function search(?string $email, ?string $keyword, ?string $ingredient, ?int $perPage = 15): LengthAwarePaginator;
+    public function search(?string $email, ?string $keyword, ?array $ingredients, ?int $perPage = 15): LengthAwarePaginator;
 }
 
