@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\IngredientsController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/recipes', [RecipeController::class, 'index']);
+Route::get('/recipes/slug/{slug}', [RecipeController::class, 'showBySlug']);
+Route::get('/recipes/{recipe}', [RecipeController::class, 'show']);
+Route::get('/ingredients', [IngredientsController::class, 'index']);
