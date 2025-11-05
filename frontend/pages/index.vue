@@ -59,6 +59,19 @@
         </div>
       </div>
 
+      <div class="search-field">
+        <label for="per_page">Results per page:</label>
+        <select
+          id="per_page"
+          v-model="searchParams.per_page"
+        >
+          <option value="1">1</option>
+          <option value="5">5</option>
+          <option value="15">15</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+
       <button @click="performSearch" :disabled="loading">
         {{ loading ? 'Searching...' : 'Search' }}
       </button>
@@ -132,7 +145,8 @@ const { searchRecipes, getIngredients } = useRecipes()
 const searchParams = ref({
   email: '',
   keyword: '',
-  ingredients: [] as string[]
+  ingredients: [] as string[],
+  per_page: 15
 })
 
 const availableIngredients = ref<Array<{ id: number; name: string }>>([])
@@ -152,6 +166,7 @@ const performSearch = () => {
   if (searchParams.value.ingredients && searchParams.value.ingredients.length > 0) {
     params.ingredients = searchParams.value.ingredients
   }
+  if (searchParams.value.per_page) params.per_page = Number(searchParams.value.per_page)
 
   searchRecipes(params)
     .then((response) => {
@@ -174,7 +189,8 @@ const clearSearch = () => {
   searchParams.value = {
     email: '',
     keyword: '',
-    ingredients: []
+    ingredients: [],
+    per_page: 10
   }
   recipes.value = null
   hasSearched.value = false
@@ -193,6 +209,7 @@ const goToPage = (page: number) => {
   if (searchParams.value.ingredients && searchParams.value.ingredients.length > 0) {
     params.ingredients = searchParams.value.ingredients
   }
+  if (searchParams.value.per_page) params.per_page = Number(searchParams.value.per_page)
 
   searchRecipes(params)
     .then((response) => {
