@@ -17,25 +17,14 @@ class IngredientsFactory extends Factory
      */
     public function definition(): array
     {
-        $quantities = ['1', '2', '3', '1/2', '1/4', '1/3'];
         $units = ['cup', 'tbsp', 'tsp', 'oz', 'lb', 'cloves', 'large', 'medium', 'small'];
         $items = ['potatoes', 'salt', 'pepper', 'butter', 'onion', 'garlic', 'olive oil', 'flour', 'sugar', 'eggs'];
 
         return [
-            'name' => fake()->unique()->randomElement($quantities) . ' ' .
+            'name' => fake()->unique()->numberBetween(1, 9999) . ' ' .
                      fake()->randomElement($units) . ' ' .
                      fake()->randomElement($items),
         ];
-    }
-
-    /**
-     * Indicate that the ingredient should have a specific name.
-     */
-    public function withName(string $name): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'name' => $name,
-        ]);
     }
 }
 

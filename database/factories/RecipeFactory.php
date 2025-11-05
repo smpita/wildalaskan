@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Ingredients;
 use App\Models\Recipe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,6 +30,22 @@ class RecipeFactory extends Factory
                 fake()->sentence(),
             ],
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Recipe $recipe) {
+            // Only attach default ingredients if none are already attached
+            if ($recipe->ingredients()->count() === 0) {
+                // Create 3-6 random ingredients and attach them to the recipe
+                $ingredientCount = fake()->numberBetween(2, 4);
+                $ingredients = Ingredients::factory()->count($ingredientCount)->create();
+                $recipe->ingredients()->attach($ingredients->pluck('id'));
+            }
+        });
     }
 
     /**
