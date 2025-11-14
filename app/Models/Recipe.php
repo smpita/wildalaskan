@@ -38,10 +38,10 @@ class Recipe extends Model
         }
 
         // Get existing slugs that start with base slug followed by a dash and number
-        $matches = static::where('slug', 'LIKE', $slug . '-%')->get(['slug']);
+        $matches = static::where('slug', 'LIKE', $slug.'-%')->get(['slug']);
 
         $maxCount = 0;
-        foreach($matches as $match) {
+        foreach ($matches as $match) {
             $end = explode($slug.'-', $match->slug)[1] ?? 0;
             if (is_numeric($end) && $end > $maxCount) {
                 $maxCount = $end;
@@ -50,8 +50,8 @@ class Recipe extends Model
 
         // First increment is always -2 because it's the second use of the slug
         return $maxCount < 2
-            ? $slug . '-2'
-            : $slug . '-' . ++$maxCount;
+            ? $slug.'-2'
+            : $slug.'-'.++$maxCount;
     }
 
     public function ingredients()
