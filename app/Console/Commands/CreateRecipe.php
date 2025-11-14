@@ -58,9 +58,8 @@ class CreateRecipe extends Command
         $recipe->ingredients()->attach($ingredientIds);
 
         $this->info("Recipe '{$recipe->name}' created successfully with slug: {$recipe->slug}");
-        $this->info("Created with {$recipe->ingredients->count()} ingredients and " . count($steps) . ' steps.');
+        $this->info("Created with {$recipe->ingredients->count()} ingredients and ".count($steps).' steps.');
 
         return Command::SUCCESS;
     }
 }
-

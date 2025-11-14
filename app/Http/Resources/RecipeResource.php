@@ -20,16 +20,10 @@ class RecipeResource extends JsonResource
             'description' => $this->description,
             'author_email' => $this->author_email,
             'slug' => $this->slug,
-            'steps' => $this->steps,
-            'ingredients' => $this->ingredients->map(function ($ingredient) {
-                return [
-                    'id' => $ingredient->id,
-                    'name' => $ingredient->name,
-                ];
-            }),
+            'steps' => StepResource::collection($this->steps),
+            'ingredients' => IngredientResource::collection($this->ingredients),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
     }
 }
-

@@ -9,24 +9,17 @@ use App\Services\RecipeSearchServiceInterface;
 
 class RecipeController extends Controller
 {
-    public function __construct(
-        private RecipeSearchServiceInterface $searchService
-    ) {
-    }
-
     /**
      * Display a listing of the resource with optional search.
      */
-    public function index(SearchRecipesRequest $request)
+    public function index(SearchRecipesRequest $request, RecipeSearchServiceInterface $searchService)
     {
-        $validated = $request->validated();
+        $email = $request->validated('email');
+        $keyword = $request->validated('keyword');
+        $ingredients = $request->validated('ingredients');
+        $perPage = $request->validated('per_page', 15);
 
-        $email = $request->input('email');
-        $keyword = $request->input('keyword');
-        $ingredients = $request->input('ingredients');
-        $perPage = $request->input('per_page', 15);
-
-        $recipes = $this->searchService->search($email, $keyword, $ingredients, $perPage);
+        $recipes = $searchService->search($email, $keyword, $ingredients, $perPage);
 
         // Preserve query parameters in pagination links
         $recipes->appends($request->query());
@@ -39,7 +32,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        $recipe->load('ingredients');
+        $recipe->load(['ingredients', 'steps']);
 
         return new RecipeResource($recipe);
     }
@@ -49,7 +42,8 @@ class RecipeController extends Controller
      */
     public function showBySlug(string $slug)
     {
-        $recipe = Recipe::with('ingredients')->where('slug', $slug)->firstOrFail();
+        $recipe = Recipe::with(['ingredients', 'steps'])
+            ->where('slug', $slug)->firstOrFail();
 
         return new RecipeResource($recipe);
     }

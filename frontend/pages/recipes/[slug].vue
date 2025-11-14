@@ -20,7 +20,7 @@
         <h2>Ingredients</h2>
         <ul>
           <li v-for="ingredient in recipe.ingredients" :key="ingredient.id">
-            {{ ingredient.name }}
+            {{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}
           </li>
         </ul>
       </div>
@@ -28,8 +28,8 @@
       <div v-if="recipe.steps && recipe.steps.length > 0" class="steps">
         <h2>Steps</h2>
         <ol>
-          <li v-for="(step, index) in recipe.steps" :key="index">
-            {{ step }}
+          <li v-for="step in recipe.steps" :key="step.step_number">
+            {{ step.description }}
           </li>
         </ol>
       </div>
@@ -38,20 +38,8 @@
 </template>
 
 <script setup lang="ts">
-interface Ingredient {
-  id: number
-  name: string
-}
-
-interface Recipe {
-  id: number
-  name: string
-  description: string
-  author_email: string
-  slug: string
-  steps: string[]
-  ingredients: Ingredient[]
-}
+import type { Recipe } from '~/composables/useRecipes'
+import '~/assets/css/recipe-detail.css'
 
 const route = useRoute()
 const { getRecipeBySlug } = useRecipes()
@@ -67,8 +55,7 @@ onMounted(() => {
 
   getRecipeBySlug(slug)
     .then((response) => {
-      // Handle both wrapped and unwrapped responses
-      const recipeData = (response as any)?.data || response
+      const recipeData = (response as any).data
       recipe.value = recipeData as Recipe
     })
     .catch((e: any) => {
@@ -79,114 +66,3 @@ onMounted(() => {
     })
 })
 </script>
-
-<style scoped>
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.loading,
-.error {
-  text-align: center;
-  padding: 40px;
-  font-size: 18px;
-}
-
-.error {
-  color: #721c24;
-  background: #f8d7da;
-  border-radius: 4px;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 20px;
-  color: #007bff;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.back-link:hover {
-  text-decoration: underline;
-}
-
-.recipe-detail h1 {
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.meta {
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #eee;
-}
-
-.author {
-  color: #666;
-  font-size: 16px;
-}
-
-.description {
-  margin-bottom: 30px;
-}
-
-.description h2 {
-  color: #333;
-  margin-bottom: 10px;
-  font-size: 20px;
-}
-
-.description p {
-  color: #555;
-  line-height: 1.6;
-}
-
-.ingredients {
-  margin-bottom: 30px;
-}
-
-.ingredients h2 {
-  color: #333;
-  margin-bottom: 15px;
-  font-size: 20px;
-}
-
-.ingredients ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.ingredients li {
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-  color: #555;
-}
-
-.ingredients li:last-child {
-  border-bottom: none;
-}
-
-.steps {
-  margin-bottom: 30px;
-}
-
-.steps h2 {
-  color: #333;
-  margin-bottom: 15px;
-  font-size: 20px;
-}
-
-.steps ol {
-  padding-left: 20px;
-}
-
-.steps li {
-  padding: 10px 0;
-  color: #555;
-  line-height: 1.6;
-}
-</style>
-
