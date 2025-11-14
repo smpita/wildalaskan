@@ -15,11 +15,6 @@ class Recipe extends Model
         'description',
         'author_email',
         'slug',
-        'steps',
-    ];
-
-    protected $casts = [
-        'steps' => 'array',
     ];
 
     protected static function boot()
@@ -61,6 +56,12 @@ class Recipe extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredients::class, 'ingredient_recipe', 'recipe_id', 'ingredient_id');
+        return $this->belongsToMany(Ingredients::class, 'ingredient_recipe', 'recipe_id', 'ingredient_id')
+            ->withPivot('amount', 'unit');
+    }
+
+    public function steps()
+    {
+        return $this->hasMany(Step::class);
     }
 }
