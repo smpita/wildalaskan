@@ -14,12 +14,10 @@ class RecipeController extends Controller
      */
     public function index(SearchRecipesRequest $request, RecipeSearchServiceInterface $searchService)
     {
-        $validated = $request->validated();
-
-        $email = $request->input('email');
-        $keyword = $request->input('keyword');
-        $ingredients = $request->input('ingredients');
-        $perPage = $request->input('per_page', 15);
+        $email = $request->validated('email');
+        $keyword = $request->validated('keyword');
+        $ingredients = $request->validated('ingredients');
+        $perPage = $request->validated('per_page', 15);
 
         $recipes = $searchService->search($email, $keyword, $ingredients, $perPage);
 
