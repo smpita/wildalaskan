@@ -28,19 +28,9 @@ class RecipeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Recipe $recipe)
-    {
-        $recipe->load(['ingredients', 'steps']);
-
-        return new RecipeResource($recipe);
-    }
-
-    /**
      * Display recipe by slug.
      */
-    public function showBySlug(string $slug)
+    public function show(string $slug)
     {
         $recipe = Recipe::with(['ingredients', 'steps'])
             ->where('slug', $slug)->firstOrFail();

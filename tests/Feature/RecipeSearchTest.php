@@ -125,22 +125,11 @@ class RecipeSearchTest extends TestCase
         $response->assertJsonCount(0, 'data');
     }
 
-    public function test_can_get_recipe_by_id(): void
-    {
-        $recipe = Recipe::first();
-
-        $response = $this->getJson("/api/recipes/{$recipe->id}");
-
-        $response->assertStatus(200);
-        $response->assertJsonFragment(['id' => $recipe->id]);
-        $response->assertJsonFragment(['name' => $recipe->name]);
-    }
-
     public function test_can_get_recipe_by_slug(): void
     {
         $recipe = Recipe::first();
 
-        $response = $this->getJson("/api/recipes/slug/{$recipe->slug}");
+        $response = $this->getJson("/api/recipes/{$recipe->slug}");
 
         $response->assertStatus(200);
         $response->assertJsonFragment(['slug' => $recipe->slug]);

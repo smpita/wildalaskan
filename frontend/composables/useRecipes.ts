@@ -65,7 +65,7 @@ export const useRecipes = () => {
   }
 
   const getRecipeBySlug = (slug: string) => {
-    return $fetch(`${apiBase}/recipes/slug/${slug}`, { headers })
+    return $fetch(`${apiBase}/recipes/${slug}`, { headers })
   }
 
   const getRecipeById = (id: number) => {
