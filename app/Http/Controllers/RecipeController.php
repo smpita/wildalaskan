@@ -32,7 +32,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        $recipe->load('ingredients');
+        $recipe->load(['ingredients', 'steps']);
 
         return new RecipeResource($recipe);
     }
@@ -42,7 +42,8 @@ class RecipeController extends Controller
      */
     public function showBySlug(string $slug)
     {
-        $recipe = Recipe::with('ingredients')->where('slug', $slug)->firstOrFail();
+        $recipe = Recipe::with(['ingredients', 'steps'])
+            ->where('slug', $slug)->firstOrFail();
 
         return new RecipeResource($recipe);
     }
