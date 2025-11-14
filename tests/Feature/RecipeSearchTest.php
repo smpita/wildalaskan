@@ -60,7 +60,7 @@ class RecipeSearchTest extends TestCase
 
     public function test_can_search_recipes_by_ingredient_partial_match(): void
     {
-        $response = $this->getJson('/api/recipes?ingredients[]=potato');
+        $response = $this->getJson('/api/recipes?ingredients[]=potatoes');
 
         $response->assertStatus(200);
         $response->assertJsonCount(3, 'data');
@@ -71,7 +71,7 @@ class RecipeSearchTest extends TestCase
 
     public function test_can_search_recipes_by_combination_email_and_ingredient(): void
     {
-        $response = $this->getJson('/api/recipes?email=foo@bar.com&ingredients[]=potato');
+        $response = $this->getJson('/api/recipes?email=foo@bar.com&ingredients[]=potatoes');
 
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
@@ -91,7 +91,7 @@ class RecipeSearchTest extends TestCase
 
     public function test_can_search_recipes_by_combination_ingredient_and_keyword(): void
     {
-        $response = $this->getJson('/api/recipes?ingredients[]=potato&keyword=scallop');
+        $response = $this->getJson('/api/recipes?ingredients[]=potatoes&keyword=scallop');
 
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
@@ -101,7 +101,7 @@ class RecipeSearchTest extends TestCase
 
     public function test_can_search_recipes_by_all_three_parameters(): void
     {
-        $response = $this->getJson('/api/recipes?email=foo@bar.com&ingredients[]=potato&keyword=scallop');
+        $response = $this->getJson('/api/recipes?email=foo@bar.com&ingredients[]=potatoes&keyword=scallop');
 
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
@@ -162,7 +162,7 @@ class RecipeSearchTest extends TestCase
 
     public function test_search_pagination_retains_search_parameters(): void
     {
-        $response = $this->getJson('/api/recipes?email=foo@bar.com&ingredients[]=potato&keyword=scallop&per_page=1');
+        $response = $this->getJson('/api/recipes?email=foo@bar.com&ingredients[]=potatoes&keyword=scallop&per_page=1');
 
         $response->assertStatus(200);
         $links = $response->json('links');
@@ -175,7 +175,7 @@ class RecipeSearchTest extends TestCase
         parse_str($queryString, $queryParams);
 
         $this->assertEquals('foo@bar.com', $queryParams['email'] ?? null);
-        $this->assertEquals('potato', $queryParams['ingredients'][0] ?? null);
+        $this->assertEquals('potatoes', $queryParams['ingredients'][0] ?? null);
         $this->assertEquals('scallop', $queryParams['keyword'] ?? null);
     }
 }
