@@ -9,15 +9,10 @@ use App\Services\RecipeSearchServiceInterface;
 
 class RecipeController extends Controller
 {
-    public function __construct(
-        private RecipeSearchServiceInterface $searchService
-    ) {
-    }
-
     /**
      * Display a listing of the resource with optional search.
      */
-    public function index(SearchRecipesRequest $request)
+    public function index(SearchRecipesRequest $request, RecipeSearchServiceInterface $searchService)
     {
         $validated = $request->validated();
 
@@ -26,7 +21,7 @@ class RecipeController extends Controller
         $ingredients = $request->input('ingredients');
         $perPage = $request->input('per_page', 15);
 
-        $recipes = $this->searchService->search($email, $keyword, $ingredients, $perPage);
+        $recipes = $searchService->search($email, $keyword, $ingredients, $perPage);
 
         // Preserve query parameters in pagination links
         $recipes->appends($request->query());
