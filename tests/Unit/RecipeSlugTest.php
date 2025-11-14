@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\Models\Recipe;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class RecipeSlugTest extends TestCase
@@ -17,7 +16,6 @@ class RecipeSlugTest extends TestCase
             'name' => 'Test Recipe',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1', 'Step 2'],
         ]);
 
         $this->assertNotNull($recipe->slug);
@@ -30,7 +28,6 @@ class RecipeSlugTest extends TestCase
             'name' => 'Recipe with Special Characters! @#$%',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         $this->assertNotNull($recipe->slug);
@@ -44,7 +41,6 @@ class RecipeSlugTest extends TestCase
             'name' => 'Recette Française avec des accents',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         $this->assertNotNull($recipe->slug);
@@ -58,7 +54,6 @@ class RecipeSlugTest extends TestCase
             'description' => 'Test description',
             'author_email' => 'test@example.com',
             'slug' => 'custom-slug',
-            'steps' => ['Step 1'],
         ]);
 
         $this->assertEquals('custom-slug', $recipe->slug);
@@ -70,14 +65,12 @@ class RecipeSlugTest extends TestCase
             'name' => 'Chocolate Cake',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         $recipe2 = Recipe::create([
             'name' => 'Chocolate Cake',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         $this->assertEquals('chocolate-cake', $recipe1->slug);
@@ -91,21 +84,18 @@ class RecipeSlugTest extends TestCase
             'name' => 'Pasta Recipe',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         $recipe2 = Recipe::create([
             'name' => 'Pasta Recipe',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         $recipe3 = Recipe::create([
             'name' => 'Pasta Recipe',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         $this->assertEquals('pasta-recipe', $recipe1->slug);
@@ -121,7 +111,6 @@ class RecipeSlugTest extends TestCase
             'description' => 'Test description',
             'author_email' => 'test@example.com',
             'slug' => 'unique-recipe',
-            'steps' => ['Step 1'],
         ]);
 
         $this->expectException(\Illuminate\Database\QueryException::class);
@@ -131,7 +120,6 @@ class RecipeSlugTest extends TestCase
             'description' => 'Test description',
             'author_email' => 'test@example.com',
             'slug' => 'unique-recipe', // Same slug
-            'steps' => ['Step 1'],
         ]);
     }
 
@@ -148,7 +136,6 @@ class RecipeSlugTest extends TestCase
             'description' => 'Test description',
             'author_email' => 'test@example.com',
             'slug' => $slug1,
-            'steps' => ['Step 1'],
         ]);
 
         // Generate another slug with the same name
@@ -165,7 +152,6 @@ class RecipeSlugTest extends TestCase
             'description' => 'Test description',
             'author_email' => 'test@example.com',
             'slug' => 'recipe-name-2',
-            'steps' => ['Step 1'],
         ]);
 
         Recipe::create([
@@ -173,7 +159,6 @@ class RecipeSlugTest extends TestCase
             'description' => 'Test description',
             'author_email' => 'test@example.com',
             'slug' => 'recipe-name-3',
-            'steps' => ['Step 1'],
         ]);
 
         // Now create a recipe with the same name - should generate recipe-name (first available)
@@ -181,7 +166,6 @@ class RecipeSlugTest extends TestCase
             'name' => 'Recipe Name',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         // The generateUniqueSlug method should find recipe-name doesn't exist
@@ -195,7 +179,6 @@ class RecipeSlugTest extends TestCase
             'name' => 'Original Recipe',
             'description' => 'Test description',
             'author_email' => 'test@example.com',
-            'steps' => ['Step 1'],
         ]);
 
         $originalSlug = $recipe->slug;
@@ -209,4 +192,3 @@ class RecipeSlugTest extends TestCase
         $this->assertEquals($originalSlug, $recipe->slug);
     }
 }
-
