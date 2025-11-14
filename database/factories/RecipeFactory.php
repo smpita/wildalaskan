@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Ingredients;
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\Step;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -39,11 +39,11 @@ class RecipeFactory extends Factory
                 $units = ['cup', 'tbsp', 'tsp', 'clove', 'pinch', 'oz', 'lb', 'g', 'ml', 'l'];
                 // Create some random ingredients and attach them to the recipe
                 $ingredientCount = fake()->numberBetween(2, 4);
-                $ingredients = Ingredients::count() > 10
-                    ? Ingredients::inRandomOrder()->take($ingredientCount)->get()
-                    : Ingredients::factory()->count($ingredientCount)->create();
+                $ingredients = Ingredient::count() > 10
+                    ? Ingredient::inRandomOrder()->take($ingredientCount)->get()
+                    : Ingredient::factory()->count($ingredientCount)->create();
 
-                $ingredients->each(function (Ingredients $ingredient) use ($recipe, $amounts, $units) {
+                $ingredients->each(function (Ingredient $ingredient) use ($recipe, $amounts, $units) {
                     $recipe->ingredients()->attach($ingredient->id, [
                         'amount' => fake()->randomElement($amounts),
                         'unit' => fake()->randomElement($units),

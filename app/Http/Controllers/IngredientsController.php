@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\IngredientResource;
-use App\Models\Ingredients;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 
 class IngredientsController extends Controller
@@ -13,7 +13,7 @@ class IngredientsController extends Controller
      */
     public function index()
     {
-        return IngredientResource::collection(Ingredients::orderBy('name')->get(['id', 'name']));
+        return IngredientResource::collection(Ingredient::orderBy('name')->get(['id', 'name']));
     }
 
     /**
@@ -35,7 +35,7 @@ class IngredientsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ingredients $ingredients)
+    public function show(Ingredient $ingredients)
     {
         //
     }
@@ -43,7 +43,7 @@ class IngredientsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ingredients $ingredients)
+    public function edit(Ingredient $ingredients)
     {
         //
     }
@@ -51,7 +51,7 @@ class IngredientsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ingredients $ingredients)
+    public function update(Request $request, Ingredient $ingredients)
     {
         //
     }
@@ -59,7 +59,7 @@ class IngredientsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ingredients $ingredients)
+    public function destroy(Ingredient $ingredients)
     {
         //
     }

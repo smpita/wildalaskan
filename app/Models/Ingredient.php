@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ingredients extends Model
+class Ingredient extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class Ingredients extends Model
 
     public function recipes()
     {
-        return $this->belongsToMany(Recipe::class, 'ingredient_recipe', 'ingredient_id', 'recipe_id')
+        return $this->belongsToMany(Recipe::class)
             ->withPivot('amount', 'unit');
     }
 }
