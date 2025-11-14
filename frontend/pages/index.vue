@@ -131,15 +131,6 @@
 <script setup lang="ts">
 import type { SearchResponse } from '~/composables/useRecipes'
 
-interface Recipe {
-  id: number
-  name: string
-  description: string
-  author_email: string
-  slug: string
-  ingredients: Array<{ id: number; name: string }>
-}
-
 const { searchRecipes, getIngredients } = useRecipes()
 
 const searchParams = ref({

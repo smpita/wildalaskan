@@ -38,20 +38,7 @@
 </template>
 
 <script setup lang="ts">
-interface Ingredient {
-  id: number
-  name: string
-}
-
-interface Recipe {
-  id: number
-  name: string
-  description: string
-  author_email: string
-  slug: string
-  steps: string[]
-  ingredients: Ingredient[]
-}
+import type { Recipe } from '~/composables/useRecipes'
 
 const route = useRoute()
 const { getRecipeBySlug } = useRecipes()

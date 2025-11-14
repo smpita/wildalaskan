@@ -1,27 +1,31 @@
-interface Recipe {
+interface Ingredient {
+  id: number
+  name: string
+}
+export interface Recipe {
   id: number
   name: string
   description: string
   author_email: string
   slug: string
-  ingredients: Array<{ id: number; name: string }>
+  steps: string[]
+  ingredients: Ingredient[]
 }
-
 export interface SearchResponse {
   data: Recipe[]
   links: {
-    first: string | null
-    last: string | null
-    prev: string | null
-    next: string | null
+    first?: string
+    last?: string
+    prev?: string
+    next?: string
   }
   meta: {
     current_page: number
     last_page: number
     total: number
     per_page: number
-    from: number | null
-    to: number | null
+    from?: number
+    to?: number
   }
 }
 
