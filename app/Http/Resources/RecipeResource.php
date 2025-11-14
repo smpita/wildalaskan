@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\IngredientResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RecipeResource extends JsonResource
@@ -21,12 +22,7 @@ class RecipeResource extends JsonResource
             'author_email' => $this->author_email,
             'slug' => $this->slug,
             'steps' => $this->steps,
-            'ingredients' => $this->ingredients->map(function ($ingredient) {
-                return [
-                    'id' => $ingredient->id,
-                    'name' => $ingredient->name,
-                ];
-            }),
+            'ingredients' => IngredientResource::collection($this->ingredients),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

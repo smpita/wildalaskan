@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\IngredientResource;
 use App\Models\Ingredients;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,7 @@ class IngredientsController extends Controller
      */
     public function index()
     {
-        $ingredients = Ingredients::orderBy('name')->get(['id', 'name']);
-
-        return response()->json($ingredients);
+        return IngredientResource::collection(Ingredients::orderBy('name')->get(['id', 'name']));
     }
 
     /**
