@@ -68,10 +68,6 @@ export const useRecipes = () => {
     return $fetch(`${apiBase}/recipes/${slug}`, { headers })
   }
 
-  const getRecipeById = (id: number) => {
-    return $fetch(`${apiBase}/recipes/${id}`, { headers })
-  }
-
   const getIngredients = () => {
     return $fetch<{ data: Array<{ id: number; name: string }> }>(`${apiBase}/ingredients`, { headers })
       .then(response => response.data)
@@ -80,7 +76,6 @@ export const useRecipes = () => {
   return {
     searchRecipes,
     getRecipeBySlug,
-    getRecipeById,
     getIngredients
   }
 }
