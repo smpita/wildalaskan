@@ -87,7 +87,7 @@
 
       <div class="recipe-list">
         <div v-for="recipe in recipes.data" :key="recipe.id" class="recipe-card">
-          <NuxtLink :to="`/recipes/${recipe.slug}`" class="recipe-link">
+          <NuxtLink :to="{ name: 'recipes-slug', params: { slug: recipe.slug } }" class="recipe-link">
             <h3>{{ recipe.name }}</h3>
             <p class="author">Author: {{ recipe.author_email }}</p>
             <p class="description">{{ recipe.description }}</p>
