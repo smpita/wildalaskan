@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Ingredients;
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Database\Seeder;
 
@@ -14,16 +14,16 @@ class RecipeSeeder extends Seeder
     public function run(): void
     {
         // Create some sample ingredients
-        $potato = Ingredients::where('name', 'potatoes')->firstOrFail();
-        $salt = Ingredients::where('name', 'salt')->firstOrFail();
-        $pepper = Ingredients::where('name', 'black pepper')->firstOrFail();
-        $butter = Ingredients::where('name', 'butter')->firstOrFail();
-        $salmon = Ingredients::where('name', 'salmon fillet')->firstOrFail();
-        $honey = Ingredients::where('name', 'honey')->firstOrFail();
-        $scallops = Ingredients::where('name', 'large scallops')->firstOrFail();
-        $oliveOil = Ingredients::where('name', 'olive oil')->firstOrFail();
-        $garlic = Ingredients::where('name', 'garlic')->firstOrFail();
-        $lemon = Ingredients::where('name', 'lemon')->firstOrFail();
+        $potato = Ingredient::where('name', 'potatoes')->firstOrFail();
+        $salt = Ingredient::where('name', 'salt')->firstOrFail();
+        $pepper = Ingredient::where('name', 'black pepper')->firstOrFail();
+        $butter = Ingredient::where('name', 'butter')->firstOrFail();
+        $salmon = Ingredient::where('name', 'salmon fillet')->firstOrFail();
+        $honey = Ingredient::where('name', 'honey')->firstOrFail();
+        $scallops = Ingredient::where('name', 'large scallops')->firstOrFail();
+        $oliveOil = Ingredient::where('name', 'olive oil')->firstOrFail();
+        $garlic = Ingredient::where('name', 'garlic')->firstOrFail();
+        $lemon = Ingredient::where('name', 'lemon')->firstOrFail();
 
         $amounts = ['1/4', '1/3', '1/2', '2/3', '3/4', '1', '2', '3', '4', '5'];
         $units = ['cup', 'tbsp', 'tsp', 'pinch', 'oz', 'lb', 'g', 'ml', 'l'];
