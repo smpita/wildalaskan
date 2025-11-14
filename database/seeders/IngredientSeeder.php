@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Ingredients;
-use App\Models\Recipe;
 use Illuminate\Database\Seeder;
 
 class IngredientSeeder extends Seeder
@@ -14,16 +13,15 @@ class IngredientSeeder extends Seeder
     public function run(): void
     {
         // Create some sample ingredients
-        $potato = Ingredients::firstOrCreate(['name' => '3 large potatoes']);
-        $salt = Ingredients::firstOrCreate(['name' => '1 tsp salt']);
-        $pepper = Ingredients::firstOrCreate(['name' => '1/2 tsp black pepper']);
-        $butter = Ingredients::firstOrCreate(['name' => '2 tbsp butter']);
-        $salmon = Ingredients::firstOrCreate(['name' => '1 lb salmon fillet']);
-        $honey = Ingredients::firstOrCreate(['name' => '2 tbsp honey']);
-        $scallops = Ingredients::firstOrCreate(['name' => '8 large scallops']);
-        $oliveOil = Ingredients::firstOrCreate(['name' => '2 tbsp olive oil']);
-        $garlic = Ingredients::firstOrCreate(['name' => '3 cloves garlic']);
-        $lemon = Ingredients::firstOrCreate(['name' => '1 lemon']);
+        $potato = Ingredients::firstOrCreate(['name' => 'potatoes']);
+        $salt = Ingredients::firstOrCreate(['name' => 'salt']);
+        $pepper = Ingredients::firstOrCreate(['name' => 'black pepper']);
+        $butter = Ingredients::firstOrCreate(['name' => 'butter']);
+        $salmon = Ingredients::firstOrCreate(['name' => 'salmon fillet']);
+        $honey = Ingredients::firstOrCreate(['name' => 'honey']);
+        $scallops = Ingredients::firstOrCreate(['name' => 'large scallops']);
+        $oliveOil = Ingredients::firstOrCreate(['name' => 'olive oil']);
+        $garlic = Ingredients::firstOrCreate(['name' => 'garlic']);
+        $lemon = Ingredients::firstOrCreate(['name' => 'lemon']);
     }
 }
-
