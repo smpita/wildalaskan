@@ -1,6 +1,12 @@
 interface Ingredient {
   id: number
   name: string
+  amount: string
+  unit: string
+}
+interface Step {
+  description: string
+  step_number: number
 }
 export interface Recipe {
   id: number
@@ -8,7 +14,7 @@ export interface Recipe {
   description: string
   author_email: string
   slug: string
-  steps: string[]
+  steps: Step[]
   ingredients: Ingredient[]
 }
 export interface SearchResponse {
@@ -67,7 +73,8 @@ export const useRecipes = () => {
   }
 
   const getIngredients = () => {
-    return $fetch<Array<{ id: number; name: string }>>(`${apiBase}/ingredients`, { headers })
+    return $fetch<{ data: Array<{ id: number; name: string }> }>(`${apiBase}/ingredients`, { headers })
+      .then(response => response.data)
   }
 
   return {

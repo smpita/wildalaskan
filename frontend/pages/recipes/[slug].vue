@@ -20,7 +20,7 @@
         <h2>Ingredients</h2>
         <ul>
           <li v-for="ingredient in recipe.ingredients" :key="ingredient.id">
-            {{ ingredient.name }}
+            {{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}
           </li>
         </ul>
       </div>
@@ -28,8 +28,8 @@
       <div v-if="recipe.steps && recipe.steps.length > 0" class="steps">
         <h2>Steps</h2>
         <ol>
-          <li v-for="(step, index) in recipe.steps" :key="index">
-            {{ step }}
+          <li v-for="step in recipe.steps" :key="step.step_number">
+            {{ step.description }}
           </li>
         </ol>
       </div>
