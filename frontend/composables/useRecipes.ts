@@ -32,6 +32,9 @@ export interface SearchResponse {
 export const useRecipes = () => {
   const config = useRuntimeConfig()
   const apiBase = config.public.apiBase
+  const headers = {
+    Accept: 'application/json'
+  }
 
   const searchRecipes = (params: {
     email?: string
@@ -52,19 +55,19 @@ export const useRecipes = () => {
     if (params.page) queryParams.append('page', params.page.toString())
     if (params.per_page) queryParams.append('per_page', params.per_page.toString())
 
-    return $fetch<SearchResponse>(`${apiBase}/recipes?${queryParams.toString()}`)
+    return $fetch<SearchResponse>(`${apiBase}/recipes?${queryParams.toString()}`, { headers })
   }
 
   const getRecipeBySlug = (slug: string) => {
-    return $fetch(`${apiBase}/recipes/slug/${slug}`)
+    return $fetch(`${apiBase}/recipes/slug/${slug}`, { headers })
   }
 
   const getRecipeById = (id: number) => {
-    return $fetch(`${apiBase}/recipes/${id}`)
+    return $fetch(`${apiBase}/recipes/${id}`, { headers })
   }
 
   const getIngredients = () => {
-    return $fetch<Array<{ id: number; name: string }>>(`${apiBase}/ingredients`)
+    return $fetch<Array<{ id: number; name: string }>>(`${apiBase}/ingredients`, { headers })
   }
 
   return {
